@@ -1,0 +1,13 @@
+pages/
+public/
+server/api/
+tests/
+content/
+.nuxt/
+.github/
+.git/
+nuxt.config.ts
+vitest.config.ts
+bun.lockb
+.gitignore
+tscconfig.json
