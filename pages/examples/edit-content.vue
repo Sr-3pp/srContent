@@ -17,6 +17,22 @@
         <div class="sr-modal-header">
           <Container :with-padding="true">
             <h2>Preview</h2>
+            <ul class="sr-preview-controls-resolutions">
+              <li
+                class="sr-preview-controls-resolution"
+                v-for="(br, i) in breakpoints"
+                :key="i"
+              >
+                <FormBox
+                  :label="br.name"
+                  type="radio"
+                  name="responsive"
+                  :value="br.value"
+                  :checked="responsive == br.value"
+                  v-model="responsive"
+                />
+              </li>
+            </ul>
           </Container>
         </div>
       </template>
@@ -32,6 +48,7 @@
         </div>
       </template>
     </Modal>
+
     <Container
       class="content-container"
       @edit-props="editProps"
@@ -97,6 +114,7 @@
         <div class="sr-modal-body">
           <TextPropsForm
             :responsive="responsive"
+            @clear-breakpoint="clearBreakpoint"
             v-if="currentComponent.component.component == 'Text'"
             :text-element="currentComponent.component.props"
           />
@@ -158,6 +176,29 @@ const propsSw = ref(false);
 const previewSw = ref(false);
 
 const responsive = ref("");
+
+const breakpoints = [
+  {
+    name: "Mobile",
+    value: "",
+  },
+  {
+    name: "Portrait",
+    value: "-sm",
+  },
+  {
+    name: "Landscape",
+    value: "-md",
+  },
+  {
+    name: "Desktop",
+    value: "-lg",
+  },
+  {
+    name: "Large Desktop",
+    value: "-xl",
+  },
+];
 
 const mediaImgs: Media[] = await $fetch<Media[]>("/api/media/img");
 const mediaIcons = await $fetch("/api/media/icons");
@@ -350,6 +391,16 @@ const closePreview = () => {
 const setResolution = (resolution: string) => {
   responsive.value = resolution;
 };
+
+const clearBreakpoint = (resolution: string) => {
+  Object.keys(
+    (currentComponent as any).value.component.props.css.style
+  ).forEach((key: string) => {
+    if (key.includes(resolution)) {
+      delete (currentComponent as any).value.component.props.css.style[key];
+    }
+  });
+};
 </script>
 
 <style lang="scss">
@@ -379,10 +430,28 @@ const setResolution = (resolution: string) => {
     border-radius: 0;
   }
 
+  .sr-modal-header {
+    .sr-container {
+      display: flex;
+
+      h2 {
+        margin-right: pxToRem(20);
+      }
+    }
+  }
+
   .sr-modal-body {
     padding: pxToRem(20);
     max-height: 100vh;
     background-color: #161616;
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    iframe {
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+    }
   }
 
   .sr-modal-close {
