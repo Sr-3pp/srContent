@@ -3,10 +3,10 @@
     <li
       class="sr-notification-stack-item"
       v-for="(notification, i) in notifications"
-      :key="notification"
+      :key="(notification as any)"
     >
       <Notification
-        v-bind="notification.props"
+        v-bind="(notification.props as any)"
         @close="notifications.splice(i, 1)"
       >
       </Notification>
@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { Component } from "~/types";
+import type { Component } from "../../types";
 import Notification from "./index.vue";
 
 defineProps({

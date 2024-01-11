@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { Component } from "~/types";
+import type { Component } from "../../types";
 const props = defineProps({
   content: {
     type: Array<Component>,

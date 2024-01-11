@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { Media } from "~/types";
+import type { Media } from "../../types";
 
 defineProps({
   media: {

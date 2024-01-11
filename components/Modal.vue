@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts" setup>
-import { lockBody } from "~/assets/ts/utilities";
+import { lockBody } from "../assets/ts/utilities";
 
 const activeDone = ref(false);
 
