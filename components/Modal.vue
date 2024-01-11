@@ -16,6 +16,7 @@
 </template>
 
 <script lang="ts" setup>
+import { ref, watch } from "vue";
 import { lockBody } from "../assets/ts/utilities";
 
 const activeDone = ref(false);
