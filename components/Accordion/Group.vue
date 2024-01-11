@@ -40,9 +40,13 @@ Object.entries(props || {}).forEach(([key, value]: [string, any]) => accordion.p
 </template>
 
 <script lang="ts" setup>
-import type { Component } from "~/types";
+import type { Component } from "../../types";
 import Accrodion from "./index.vue";
-import { updateValue, EmitHandler, deleteElement } from "~/assets/ts/utilities";
+import {
+  updateValue,
+  EmitHandler,
+  deleteElement,
+} from "../../assets/ts/utilities";
 const props = defineProps({
   content: {
     type: Array<Component>,

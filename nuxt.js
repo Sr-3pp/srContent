@@ -1,7 +1,9 @@
-import { join } from "pathe";
+import { join, dirname } from "pathe";
 import { defineNuxtModule } from "@nuxt/kit";
+import { fileURLToPath } from "url";
 
-const __dirname = process.cwd();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 export default defineNuxtModule({
   hooks: {

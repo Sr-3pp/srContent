@@ -121,7 +121,7 @@
 </template>
 
 <script lang="ts" setup>
-import { EmitHandler, updateValue } from "~/assets/ts/utilities";
+import { EmitHandler, updateValue } from "../../assets/ts/utilities";
 import Button from "../Form/Button.vue";
 import ActionBox from "../ActionBox.vue";
 const props = defineProps({

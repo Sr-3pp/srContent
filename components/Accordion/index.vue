@@ -59,8 +59,12 @@ Object.entries(props || {}).forEach(([key, value]: [string, any]) => component.p
 </template>
 
 <script lang="ts" setup>
-import type { Component } from "~/types";
-import { updateValue, EmitHandler, deleteElement } from "~/assets/ts/utilities";
+import type { Component } from "../../types";
+import {
+  updateValue,
+  EmitHandler,
+  deleteElement,
+} from "../../assets/ts/utilities";
 
 defineProps({
   open: {
