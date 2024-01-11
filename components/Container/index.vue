@@ -104,19 +104,41 @@ const props = defineProps({
   margin-right: auto;
 
   &.contained {
-    max-width: 1100px;
     padding-left: pxToRem(20);
     padding-right: pxToRem(20);
 
     @media (min-width: pxToRem(768)) {
+      max-width: pxToRem(680);
       padding-left: 0;
       padding-right: 0;
+    }
+    @media (min-width: pxToRem(1024)) {
+      max-width: pxToRem(960);
+    }
+    @media (min-width: pxToRem(1280)) {
+      max-width: pxToRem(1100);
+    }
+    @media (min-width: pxToRem(1920)) {
+      max-width: pxToRem(1400);
     }
   }
 
   &.withPadding {
     padding-top: pxToRem(20);
     padding-bottom: pxToRem(20);
+
+    @media (min-width: pxToRem(768)) {
+      padding-top: pxToRem(30);
+      padding-bottom: pxToRem(30);
+    }
+    @media (min-width: pxToRem(1024)) {
+      padding-top: pxToRem(50);
+      padding-bottom: pxToRem(50);
+    }
+
+    & + .withPadding {
+      padding-top: 0;
+    }
   }
 }
 </style>

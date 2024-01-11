@@ -1,6 +1,6 @@
 <template>
   <header class="sr-preview-controls">
-    <Container :with-padding="true">
+    <Container>
       <fieldset>
         <legend>Preview Controls</legend>
         <FormSelect
@@ -9,24 +9,7 @@
           :options="pagesOptions"
           v-model="page"
         />
-        <div>
-          <ul class="sr-preview-controls-resolutions">
-            <li
-              class="sr-preview-controls-resolution"
-              v-for="(br, i) in breakpoints"
-              :key="i"
-            >
-              <FormBox
-                :label="br.name"
-                type="radio"
-                name="responsive"
-                :value="br.value"
-                :checked="resolution == br.value"
-                v-model="resolution"
-              />
-            </li>
-          </ul>
-        </div>
+
         <FormButton @click="$emit('preview')" label="Preview" />
       </fieldset>
     </Container>
@@ -39,31 +22,6 @@ import FormSelect from "../components/Form/Select.vue";
 import FormButton from "../components/Form/Button.vue";
 
 const props = defineProps({
-  breakpoints: {
-    type: Array as PropType<any[]>,
-    default: (): any[] => [
-      {
-        name: "Mobile",
-        value: "",
-      },
-      {
-        name: "Portrait",
-        value: "-sm",
-      },
-      {
-        name: "Landscape",
-        value: "-md",
-      },
-      {
-        name: "Desktop",
-        value: "-lg",
-      },
-      {
-        name: "Large Desktop",
-        value: "-xl",
-      },
-    ],
-  },
   pages: {
     type: Array as PropType<any[]>,
     default: (): any[] => [],
@@ -84,14 +42,7 @@ const pagesOptions = computed(() => {
   });
 });
 
-const emit = defineEmits(["set-resolution", "preview"]);
-
-const resolution = computed({
-  get: () => props.responsive,
-  set: (value) => {
-    emit("set-resolution", value);
-  },
-});
+const emit = defineEmits(["preview"]);
 </script>
 
 <style lang="scss" scoped>
@@ -110,6 +61,8 @@ const resolution = computed({
   .sr-container {
     display: flex;
     align-items: center;
+    padding-top: pxToRem(20);
+    padding-bottom: pxToRem(20);
 
     fieldset {
       > * {
