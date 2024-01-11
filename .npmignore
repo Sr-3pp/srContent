@@ -10,4 +10,4 @@ nuxt.config.ts
 vitest.config.ts
 bun.lockb
 .gitignore
-tscconfig.json
+tsconfig.json
