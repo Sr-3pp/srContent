@@ -1,6 +1,8 @@
 import { join } from "pathe";
 import { defineNuxtModule } from "@nuxt/kit";
 
+const __dirname = process.cwd();
+
 export default defineNuxtModule({
   hooks: {
     "components:dirs"(dirs) {
