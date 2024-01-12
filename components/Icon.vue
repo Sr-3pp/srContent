@@ -1,5 +1,9 @@
 <template>
-  <div class="sr-icon">
+  <div
+    class="sr-icon"
+    :class="{ editable, [css.class]: css.class }"
+    :style="{ ...css.style }"
+  >
     <div class="sr-icon-editable" v-if="editable">
       <button class="sr-picture-editable-btn" @click="$emit('icon-gallery')">
         <svg
@@ -51,6 +55,13 @@ const props = defineProps({
   editable: {
     type: Boolean,
     default: false,
+  },
+  css: {
+    type: Object,
+    default: () => ({
+      class: "",
+      style: {},
+    }),
   },
 });
 </script>

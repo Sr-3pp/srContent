@@ -1,5 +1,8 @@
 <template>
-  <div :class="{ ...buildColumns(), editable }" :style="{ ...css.style }">
+  <div
+    :class="{ ...buildColumns(), editable, [css.class]: css.class }"
+    :style="{ ...css.style }"
+  >
     <button
       v-if="editable"
       @click="$emit('component-list', { component: { props }, sw: false })"

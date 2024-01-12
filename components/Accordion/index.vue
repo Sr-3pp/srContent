@@ -1,5 +1,9 @@
 <template>
-  <div class="sr-accordion" :class="{ open }">
+  <div
+    class="sr-accordion"
+    :class="{ open, [css.class]: css.class }"
+    :style="{ ...css.style }"
+  >
     <button
       @click="$emit('toggle', { key: 'open', value: !open })"
       aria-label="Toggle acordion"
@@ -78,6 +82,13 @@ defineProps({
   content: {
     type: Array<Component>,
     default: () => [],
+  },
+  css: {
+    type: Object,
+    default: () => ({
+      class: "",
+      style: {},
+    }),
   },
 });
 </script>

@@ -1,5 +1,9 @@
 <template>
-  <div class="sr-grid" :class="{ ...css.class, editable }" :style="css.style">
+  <div
+    class="sr-grid"
+    :class="{ editable, [css.class]: css.class }"
+    :style="{ ...css.style }"
+  >
     <button v-if="editable" @click="createColumn(false)" class="prepend-btn">
       Insert Column here
     </button>

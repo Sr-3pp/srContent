@@ -2,6 +2,7 @@
   <div
     class="sr-container"
     :class="{ contained, withPadding, editable, [css.class]: css.class }"
+    :style="{ ...css.style }"
   >
     <button
       @click="$emit('component-list', { component: { props }, sw: false })"

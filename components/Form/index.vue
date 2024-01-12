@@ -1,5 +1,10 @@
 <template>
-  <form class="sr-form" @submit.prevent="validateForm($event, submitForm)">
+  <form
+    class="sr-form"
+    :class="{ [css.class]: css.class }"
+    :style="{ ...css.style }"
+    @submit.prevent="validateForm($event, submitForm)"
+  >
     <fieldset v-for="(fieldset, i) in fieldsets" :key="i">
       <legend v-if="fieldset.name">{{ fieldset.name }}</legend>
       <component
@@ -23,6 +28,13 @@ defineProps({
   fieldsets: {
     type: Array<FieldSet>,
     default: () => [],
+  },
+  css: {
+    type: Object,
+    default: () => ({
+      class: "",
+      style: {},
+    }),
   },
 });
 

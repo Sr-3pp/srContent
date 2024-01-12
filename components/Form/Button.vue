@@ -1,5 +1,11 @@
 <template>
-  <component :is="tag" v-bind="{ href, disabled }" class="sr-button">
+  <component
+    :is="tag"
+    v-bind="{ href, disabled }"
+    class="sr-button"
+    :class="{ [css.class]: css.class }"
+    :style="{ ...css.style }"
+  >
     {{ label }}
     <slot></slot>
   </component>
@@ -22,6 +28,13 @@ defineProps({
   label: {
     type: String,
     default: "",
+  },
+  css: {
+    type: Object,
+    default: () => ({
+      class: "",
+      style: {},
+    }),
   },
 });
 </script>

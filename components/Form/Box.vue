@@ -1,5 +1,9 @@
 <template>
-  <label class="sr-form-box" :class="{ [css.class]: css.class, [type]: type }">
+  <label
+    class="sr-form-box"
+    :class="{ [css.class]: css.class, [type]: type }"
+    :style="{ ...css.style }"
+  >
     <input
       tabindex="0"
       :checked="modelValue == value"

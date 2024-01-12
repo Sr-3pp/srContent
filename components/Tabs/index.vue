@@ -1,5 +1,9 @@
 <template>
-  <div class="sr-tabs" :class="{ editable }">
+  <div
+    class="sr-tabs"
+    :class="{ editable, [css.class]: css.class }"
+    :style="{ ...css.style }"
+  >
     <ul class="sr-tabs-items">
       <li class="sr-tabs-item" v-for="(item, i) in items" :key="i">
         <label>
@@ -140,6 +144,13 @@ const props = defineProps({
   editable: {
     type: Boolean,
     default: false,
+  },
+  css: {
+    type: Object,
+    default: () => ({
+      class: "",
+      style: {},
+    }),
   },
 });
 const emit = defineEmits([

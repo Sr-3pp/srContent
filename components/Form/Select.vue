@@ -2,6 +2,7 @@
   <label
     class="sr-form-select"
     :class="{ [css.class]: css.class, info, error, warning }"
+    :style="{ ...css.style }"
   >
     <span v-if="label" class="label">
       {{ label }}
@@ -28,6 +29,7 @@
 </template>
 
 <script lang="ts" setup>
+import { computed } from "vue";
 interface srSelectOption {
   name: string;
   value: string;

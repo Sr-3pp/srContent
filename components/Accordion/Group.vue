@@ -1,5 +1,9 @@
 <template>
-  <ol class="sr-accordion-group">
+  <ol
+    class="sr-accordion-group"
+    :class="{ [css.class]: css.class }"
+    :style="{ ...css.style }"
+  >
     <slot></slot>
     <li
       class="sr-accordion-group-item"

@@ -1,5 +1,9 @@
 <template>
-  <picture class="sr-picture">
+  <picture
+    class="sr-picture"
+    :class="{ editable, [css.class]: css.class }"
+    :style="{ ...css.style }"
+  >
     <div class="sr-picture-editable" v-if="editable">
       <button class="sr-picture-editable-btn" @click="$emit('media-gallery')">
         <svg

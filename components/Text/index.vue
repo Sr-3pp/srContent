@@ -2,7 +2,7 @@
   <component
     :is="tag"
     class="sr-text"
-    :class="`${css.class} ${editable ? 'editable' : ''}`"
+    :class="{ editable, [css.class]: css.class }"
     :style="{ ...css.style }"
   >
     <slot></slot>

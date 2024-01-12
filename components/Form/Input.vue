@@ -1,5 +1,9 @@
 <template>
-  <label class="sr-form-input">
+  <label
+    class="sr-form-input"
+    :class="{ [css.class]: css.class }"
+    :style="{ ...css.style }"
+  >
     <input
       class="sr-form-input-input"
       :class="{ filled: modelValue, color: type === 'color' }"
