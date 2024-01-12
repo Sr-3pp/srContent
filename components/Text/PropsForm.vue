@@ -65,7 +65,7 @@
 </template>
 
 <script lang="ts" setup>
-import { pxToRem } from "~/assets/ts/utilities";
+import { pxToRem } from "../../assets/ts/utilities";
 import FormInput from "../Form/Input.vue";
 
 defineProps({
