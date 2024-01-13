@@ -1,11 +1,16 @@
 <template>
   <div class="sr-form-test">
     <Form :fieldsets="fieldsets" @submit="submitForm" submit="enviar" />
+    <p><strong>Test:</strong> {{ testSw }}</p>
+    <FormBox type="checkbox" label="Usar direccion de envio" v-model="testSw" />
   </div>
 </template>
 
 <script lang="ts" setup>
+const testSw = ref(false);
+
 const submitForm = (data: any) => {
+  console.log(fieldsets);
   console.log(data);
 };
 
@@ -102,6 +107,46 @@ const fieldsets = [
           name: "message",
           type: "textarea",
           value: "",
+        },
+      },
+    ],
+  },
+  {
+    name: "Select",
+    fields: [
+      {
+        component: "FormSelect",
+        props: {
+          label: "Select",
+          name: "select",
+          options: [
+            {
+              label: "Option 1",
+              value: "option1",
+            },
+            {
+              label: "Option 2",
+              value: "option2",
+            },
+            {
+              label: "Option 3",
+              value: "option3",
+            },
+          ],
+          value: "",
+        },
+      },
+    ],
+  },
+  {
+    name: "Box",
+    fields: [
+      {
+        component: "FormBox",
+        props: {
+          label: "Box",
+          name: "box",
+          value: true,
         },
       },
     ],

@@ -15,7 +15,7 @@
         v-model="field.props.value"
       ></component>
     </fieldset>
-    <FormButton :label="submit"></FormButton>
+    <FormButton v-if="submit != 'hidden'" :label="submit"></FormButton>
   </form>
 </template>
 
@@ -46,10 +46,6 @@ const emit = defineEmits(["submit"]);
 
 const submitForm = (data: any) => {
   emit("submit", data);
-};
-
-const setValue = (value: any) => {
-  console.log(value);
 };
 </script>
 

@@ -6,7 +6,7 @@
   >
     <input
       tabindex="0"
-      :checked="modelValue == value"
+      :checked="checked"
       :type="type"
       :name="name"
       :value="value"
@@ -35,12 +35,16 @@ defineProps({
     default: "sr",
   },
   value: {
-    type: String,
+    type: [String, Number, Boolean],
     default: "",
   },
   modelValue: {
-    type: [String, Number],
+    type: [String, Number, Boolean],
     default: "",
+  },
+  checked: {
+    type: Boolean,
+    default: false,
   },
   required: {
     type: Boolean,
@@ -58,7 +62,7 @@ defineProps({
 const emit = defineEmits(["update:modelValue"]);
 
 const updateValue = (event: any) => {
-  emit("update:modelValue", event.target.value);
+  emit("update:modelValue", event.target.checked);
 };
 </script>
 
