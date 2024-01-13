@@ -15,7 +15,7 @@
         v-model="field.props.value"
       ></component>
     </fieldset>
-    <FormButton>Send</FormButton>
+    <FormButton :label="submit"></FormButton>
   </form>
 </template>
 
@@ -25,6 +25,10 @@ import type { FieldSet } from "../../types";
 import FormButton from "./Button.vue";
 
 defineProps({
+  submit: {
+    type: String,
+    default: "Send",
+  },
   fieldsets: {
     type: Array<FieldSet>,
     default: () => [],

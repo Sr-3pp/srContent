@@ -24,7 +24,7 @@
 import ActionBox from "../ActionBox.vue";
 const props: any = defineProps({
   text: {
-    type: String,
+    type: [String, Number],
     default: "",
   },
   tag: {
