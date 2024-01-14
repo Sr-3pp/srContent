@@ -11,6 +11,7 @@
       :type="type"
       :value="modelValue"
       :required="required"
+      :disabled="disabled"
       @input="updateValue"
     />
     <span class="sr-form-input-label"> {{ label }}</span>
@@ -59,6 +60,10 @@ defineProps({
     default: "",
   },
   required: {
+    type: Boolean,
+    default: false,
+  },
+  disabled: {
     type: Boolean,
     default: false,
   },

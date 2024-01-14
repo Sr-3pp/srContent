@@ -9,6 +9,7 @@
       :type="type"
       :name="name"
       :value="value"
+      :disabled="disabled"
       :checked="Boolean(modelValue)"
       @change="updateValue"
     />
@@ -43,6 +44,10 @@ defineProps({
     default: "",
   },
   required: {
+    type: Boolean,
+    default: false,
+  },
+  disabled: {
     type: Boolean,
     default: false,
   },

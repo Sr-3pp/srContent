@@ -11,6 +11,7 @@
       tabindex="0"
       :value="modelValue"
       :name="name"
+      :disabled="disabled"
       :required="required"
       @change="handleChange"
     >
@@ -74,6 +75,10 @@ const props = defineProps({
   name: {
     type: String,
     default: "",
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
   },
   css: {
     type: Object,
