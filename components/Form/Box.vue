@@ -6,11 +6,11 @@
   >
     <input
       tabindex="0"
-      :checked="checked"
       :type="type"
       :name="name"
       :value="value"
-      @input="updateValue"
+      :checked="Boolean(modelValue)"
+      @change="updateValue"
     />
     <span class="sr-form-box-box"></span>
     <span class="sr-form-box-label">
@@ -41,10 +41,6 @@ defineProps({
   modelValue: {
     type: [String, Number, Boolean],
     default: "",
-  },
-  checked: {
-    type: Boolean,
-    default: false,
   },
   required: {
     type: Boolean,

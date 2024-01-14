@@ -7,3 +7,4 @@ export { EmitHandler } from "./emitHandler";
 export { deleteElement } from "./deleteElement";
 export { pxToRem } from "./pxToRem";
 export { proccessContent } from "./proccessContent";
+export { dataFromForm } from "./dataFromForm";
