@@ -24,6 +24,7 @@ const fieldsets = [
           label: "First Name",
           name: "first_name",
           type: "text",
+          disabled: false,
           value: "",
         },
       },
@@ -31,6 +32,7 @@ const fieldsets = [
         component: "FormInput",
         props: {
           label: "Last Name",
+          disabled: false,
           name: "last_name",
           type: "text",
           value: "",

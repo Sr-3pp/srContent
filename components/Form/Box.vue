@@ -10,7 +10,7 @@
       :name="name"
       :value="value"
       :disabled="disabled"
-      :checked="Boolean(modelValue)"
+      :checked="Boolean(value)"
       @change="updateValue"
     />
     <span class="sr-form-box-box"></span>
