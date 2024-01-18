@@ -57,7 +57,11 @@
           </svg>
         </button>
       </li>
-      <slot name="item" :current="current"></slot>
+      <slot
+        name="item"
+        :current="current"
+        :toggle="(idx: number) => current = idx"
+      ></slot>
     </ul>
     <Transition
       tabindex="0"
@@ -125,6 +129,7 @@
 </template>
 
 <script lang="ts" setup>
+import { computed } from "vue";
 import { EmitHandler, updateValue } from "../../assets/ts/utilities";
 import Button from "../Form/Button.vue";
 import ActionBox from "../ActionBox.vue";

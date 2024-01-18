@@ -4,7 +4,8 @@
     :class="{ [css.class]: css.class }"
     :style="{ ...css.style }"
   >
-    <input
+    <component
+      :is="type == 'textarea' ? 'textarea' : 'input'"
       class="sr-form-input-input"
       :class="{ filled: modelValue, color: type === 'color' }"
       :name="name"
