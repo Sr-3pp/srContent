@@ -90,7 +90,8 @@ const updateValue = (event: any) => {
   padding-top: pxToRem(25);
   overflow: hidden;
 
-  input {
+  input,
+  textarea {
     appearance: none;
     width: 100%;
     height: 100%;
@@ -128,6 +129,11 @@ const updateValue = (event: any) => {
     &.color {
       height: pxToRem(40);
     }
+  }
+
+  textarea {
+    resize: none;
+    min-height: pxToRem(100);
   }
 
   &-label {
