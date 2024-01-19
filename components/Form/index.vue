@@ -3,7 +3,7 @@
     class="sr-form"
     :class="{ [css.class]: css.class }"
     :style="{ ...css.style }"
-    @submit.prevent="validateForm($event, submitForm)"
+    @submit.prevent="validateForm($event, fieldsets, submitForm)"
   >
     <fieldset v-for="(fieldset, i) in fieldsets" :key="i">
       <legend v-if="fieldset.name">{{ fieldset.name }}</legend>
@@ -15,7 +15,12 @@
         v-model="field.props.value"
       ></component>
     </fieldset>
-    <FormButton v-if="submit != 'hidden'" :label="submit"></FormButton>
+    <slot name="legal"></slot>
+    <FormButton
+      :class="submitClass"
+      v-if="submit != 'hidden'"
+      :label="submit"
+    ></FormButton>
   </form>
 </template>
 
@@ -28,6 +33,10 @@ defineProps({
   submit: {
     type: String,
     default: "Send",
+  },
+  submitClass: {
+    type: String,
+    default: "",
   },
   fieldsets: {
     type: Array<FieldSet>,
