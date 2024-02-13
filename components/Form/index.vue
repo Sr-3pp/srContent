@@ -3,7 +3,7 @@
     class="sr-form"
     :class="{ [css.class]: css.class }"
     :style="{ ...css.style }"
-    @submit.prevent="validateForm($event, fieldsets, submitForm)"
+    @submit.prevent="validateForm(fieldsets, submitForm)"
   >
     <fieldset v-for="(fieldset, i) in fieldsets" :key="i">
       <legend v-if="fieldset.name">{{ fieldset.name }}</legend>

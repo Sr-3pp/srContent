@@ -40,38 +40,27 @@ const verifyFields = (data: any, field: any) => {
   return true;
 };
 
-export const validateForm = (
-  $event: Event,
-  form: FieldSet[],
-  callback: Function
-) => {
-  const formData = new FormData($event.target as any);
+export const validateForm = (form: FieldSet[], callback: Function) => {
   const data: any = {};
-  [...formData.entries()].forEach(([key, value]) => {
-    data[key] = value;
-  });
   const errors: any = [];
-
-  const checkData = (data: any, field: any, key: string) => {
-    const error = {
-      key,
-      message: `${key.replace(/\./g, " ")} is required`,
-    };
-
-    if (field.props.type == "email" && !validateMail(field.props.value)) {
-      error.message = "Please enter a valid email address";
-      errors.push(error);
-    } else if (field.props.confirmation && !verifyFields(data, field)) {
-      error.message = "Fields do not match";
-      errors.push(error);
-    } else if (field.props.required && !data[key]) {
-      errors.push(error);
-    }
-  };
 
   form.forEach((fieldset: FieldSet) => {
     fieldset.fields.forEach((field: any) => {
-      checkData(data, field, field.props.name);
+      if (field.props.required && !field.props.value) {
+        errors.push({ field: field.props.name, message: "Campo requerido" });
+      }
+      if (field.props.confirmation) {
+        if (!verifyFields(data, field)) {
+          errors.push({
+            field: field.props.name,
+            message: "Los campos no coinciden",
+          });
+        }
+      }
+      if (field.props.type === "email" && !validateMail(field.props.value)) {
+        errors.push({ field: field.props.name, message: "Correo inválido" });
+      }
+      data[field.props.name] = field.props.value;
     });
   });
 
