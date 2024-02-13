@@ -5,7 +5,12 @@ export default defineNuxtConfig({
     global: true,
     dirs: ["~/components"],
   },
-  css: ["~/assets/scss/main.scss", "~/assets/scss/Form.scss"],
+  css: [
+    "~/assets/scss/reset.scss",
+    "~/assets/scss/main.scss",
+    "~/assets/scss/Form.scss",
+    "normalize.css/normalize.css",
+  ],
   vite: {
     css: {
       preprocessorOptions: {

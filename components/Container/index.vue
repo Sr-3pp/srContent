@@ -103,6 +103,7 @@ const props = defineProps({
 
   margin-left: auto;
   margin-right: auto;
+  width: 100%;
 
   &.contained {
     padding-left: pxToRem(20);

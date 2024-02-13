@@ -86,7 +86,7 @@ const updateValue = (event: any) => {
       box-shadow: 0 0 pxToRem(10) var(--box-border-color);
       &::after {
         opacity: 1;
-        transform: translate(-50%, -50%) scale(1.5);
+        transform: translate(0%, -50%) scale(1.5);
       }
     }
 
@@ -129,7 +129,7 @@ const updateValue = (event: any) => {
       position: absolute;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%);
+      transform: translate(0%, -50%);
       width: 100%;
       opacity: 0;
       transition: opacity 0.35s ease-in-out, transform 0.35s ease-in-out;

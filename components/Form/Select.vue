@@ -125,7 +125,6 @@ const handleChange = (event: Event) => {
       size: pxToRem(8) auto, 100%;
     }
     width: 100%;
-    height: 100%;
     padding: pxToRem(6);
     padding-right: pxToRem(20);
     border: {

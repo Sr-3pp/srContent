@@ -159,6 +159,7 @@ $_col-widths: (
   flex-basis: auto;
   flex-grow: 1;
   padding: pxToRem(10);
+  box-sizing: border-box;
 
   @include responsiveVars() using ($br) {
     flex-direction: var(--flex-direction#{$br});

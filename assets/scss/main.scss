@@ -1,9 +1,4 @@
 * {
-  font-family: "Noto Sans KR", sans-serif;
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-
   &.editable {
     padding-top: pxToRem(30) !important;
     padding-bottom: pxToRem(30) !important;
@@ -52,16 +47,4 @@
       bottom: pxToRem(-10);
     }
   }
-}
-
-ul,
-ol,
-li {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-body {
-  width: 100%;
-  display: block;
 }

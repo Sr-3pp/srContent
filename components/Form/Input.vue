@@ -86,6 +86,7 @@ const updateValue = (event: any) => {
 
 <style lang="scss" scoped>
 .sr-form-input {
+  display: flex;
   position: relative;
   padding-top: pxToRem(25);
   overflow: hidden;
@@ -94,7 +95,6 @@ const updateValue = (event: any) => {
   textarea {
     appearance: none;
     width: 100%;
-    height: 100%;
     padding: pxToRem(6);
     padding-right: pxToRem(20);
     border: {

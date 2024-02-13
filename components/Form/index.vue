@@ -21,6 +21,7 @@
       v-if="submit != 'hidden'"
       :label="submit"
     ></FormButton>
+    <slot name="submit" />
   </form>
 </template>
 
