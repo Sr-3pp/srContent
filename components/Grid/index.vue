@@ -1,5 +1,6 @@
 <template>
-  <div
+  <component
+    :is="tag"
     class="sr-grid"
     :class="{ editable, [css.class]: css.class }"
     :style="{ ...css.style }"
@@ -48,7 +49,7 @@
       @edit-props="$emit('edit-props', null, props)"
       @delete="$emit('delete')"
     />
-  </div>
+  </component>
 </template>
 
 <script lang="ts" setup>
@@ -74,6 +75,10 @@ const props = defineProps({
       class: "",
       style: {},
     }),
+  },
+  tag: {
+    type: String,
+    default: "div",
   },
 });
 

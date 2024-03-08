@@ -66,7 +66,7 @@ watch(
 
 <style lang="scss">
 .sr-modal {
-  --modal-background-color: #fefefe;
+  --modal-background: #fefefe;
   --backdrop-background-color: rgba(0, 0, 0, 0.4);
   --close-btn-background-color: red;
   --close-btn-color: white;
@@ -206,7 +206,7 @@ watch(
   &-content {
     position: relative;
     z-index: 2;
-    background-color: var(--modal-background-color);
+    background: var(--modal-background);
     border-radius: pxToRem(8);
     width: 100%;
     max-width: pxToRem(1100);

@@ -1,5 +1,6 @@
 <template>
-  <div
+  <component
+    :is="tag"
     :class="{ ...buildColumns(), editable, [css.class]: css.class }"
     :style="{ ...css.style }"
   >
@@ -55,7 +56,7 @@
       @edit-props="$emit('edit-props', null, props)"
       @delete="$emit('delete')"
     />
-  </div>
+  </component>
 </template>
 
 <script lang="ts" setup>
@@ -87,6 +88,10 @@ const props = defineProps({
   editable: {
     type: Boolean,
     default: false,
+  },
+  tag: {
+    type: String,
+    default: "div",
   },
 });
 const buildColumns = () => {

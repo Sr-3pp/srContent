@@ -1,13 +1,22 @@
 <template>
-  <component
-    :is="tag"
+  <div
     class="sr-text"
     :class="{ editable, [css.class]: css.class }"
     :style="{ ...css.style }"
   >
     <slot></slot>
+    <component
+      :is="tag"
+      v-if="!html"
+      class="sr-text-container"
+      @blur="emitValue"
+      :contenteditable="editable"
+    >
+      {{ text }}
+    </component>
     <div
-      v-html="text"
+      v-else
+      v-html="html"
       class="sr-text-container"
       @blur="emitValue"
       :contenteditable="editable"
@@ -17,7 +26,7 @@
       @edit-props="$emit('edit-props', null, props)"
       @delete="$emit('delete')"
     />
-  </component>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -27,9 +36,13 @@ const props: any = defineProps({
     type: [String, Number],
     default: "",
   },
+  html: {
+    type: String,
+    default: "",
+  },
   tag: {
     type: String,
-    default: "div",
+    default: "p",
   },
   editable: {
     type: Boolean,
