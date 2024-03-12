@@ -11,10 +11,14 @@
 </template>
 
 <script lang="ts" setup>
-import { createApp, h } from "vue";
+import { createApp, h, ref, onMounted, onBeforeUpdate } from "vue";
 import * as Components from "../components";
 
 const props = defineProps({
+  appComponents: {
+    type: Object,
+    default: () => ({}),
+  },
   content: {
     type: Array,
     default: () => [],
@@ -24,6 +28,10 @@ const props = defineProps({
     default: "",
   },
   css: {
+    type: String,
+    default: "",
+  },
+  prefix: {
     type: String,
     default: "",
   },
@@ -52,8 +60,18 @@ onMounted(() => {
       }),
   });
 
+  const prefixedComponents: any = {};
+
   Object.keys(Components).forEach((componentName) => {
-    iframeApp.component(componentName, (Components as any)[componentName]);
+    prefixedComponents[`${props.prefix}${componentName}`] = (Components as any)[
+      componentName
+    ];
+  });
+
+  const allComponents = { ...prefixedComponents, ...props.appComponents };
+
+  Object.keys(allComponents).forEach((componentName) => {
+    iframeApp.component(componentName, (allComponents as any)[componentName]);
   });
 
   iframeApp.mount(el);

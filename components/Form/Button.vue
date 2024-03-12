@@ -41,12 +41,20 @@ defineProps({
 
 <style lang="scss" scoped>
 .sr-button {
-  background-color: #161616;
-  color: #fff;
-  padding: pxToRem(10) pxToRem(20);
-  text-align: center;
-  font-size: pxToRem(14);
-  border: none;
+  --button-bg-color: #161616;
+  --button-color: #fff;
+  --button-hover-bg-color: #000;
+  --button-border: none;
+  --button-font-size: #{pxToRem(14)};
+  --button-text-align: center;
+  --button-padding: #{pxToRem(10)} #{pxToRem(20)};
+
+  background-color: var(--button-bg-color);
+  color: var(--button-color);
+  padding: var(--button-padding);
+  text-align: var(--button-text-align);
+  font-size: var(--button-font-size);
+  border: var(--button-border);
   border-radius: pxToRem(8);
   text-transform: capitalize;
 }

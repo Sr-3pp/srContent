@@ -17,7 +17,8 @@
 </template>
 
 <script lang="ts" setup>
-import FormBox from "../components/Form/Box.vue";
+import { ref, computed } from "vue";
+import Container from "../components/Container/index.vue";
 import FormSelect from "../components/Form/Select.vue";
 import FormButton from "../components/Form/Button.vue";
 

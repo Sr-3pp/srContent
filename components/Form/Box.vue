@@ -10,7 +10,7 @@
       :name="name"
       :value="value"
       :disabled="disabled"
-      :checked="Boolean(value)"
+      :checked="Boolean(value == modelValue)"
       @change="updateValue"
     />
     <span class="sr-form-box-box"></span>
@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts" setup>
-defineProps({
+const props = defineProps({
   label: {
     type: String,
     default: "",
@@ -63,7 +63,11 @@ defineProps({
 const emit = defineEmits(["update:modelValue"]);
 
 const updateValue = (event: any) => {
-  emit("update:modelValue", event.target.checked);
+  if (props.type === "radio") {
+    emit("update:modelValue", props.value);
+  } else {
+    emit("update:modelValue", event.target.checked);
+  }
 };
 </script>
 
@@ -104,6 +108,7 @@ const updateValue = (event: any) => {
     z-index: 1;
     width: 100%;
     padding-top: pxToRem(4);
+    color: var(--input-color);
   }
   &-box {
     width: pxToRem(16);

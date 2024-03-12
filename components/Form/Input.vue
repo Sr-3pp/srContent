@@ -97,6 +97,7 @@ const updateValue = (event: any) => {
     width: 100%;
     padding: pxToRem(6);
     padding-right: pxToRem(20);
+    color: var(--input-color);
     border: {
       width: pxToRem(1);
       style: solid;

@@ -63,15 +63,14 @@
         :toggle="(idx: number) => current = idx"
       ></slot>
     </ul>
-    <Transition
-      tabindex="0"
-      tag="div"
-      v-for="(item, i) in items"
-      :key="item"
-      name="component-fade"
-      mode="out-in"
-    >
-      <article class="sr-tabs-content" v-if="current == i">
+    <TransitionGroup tag="div" name="component-fade" mode="out-in">
+      <article
+        tabindex="0"
+        v-for="(item, i) in items"
+        :key="item"
+        class="sr-tabs-content"
+        v-show="current == i"
+      >
         <component
           v-for="(element, j) in item.content"
           :is="element.component"
@@ -117,7 +116,7 @@
           add Component
         </Button>
       </article>
-    </Transition>
+    </TransitionGroup>
     <slot name="content" :current="current"></slot>
 
     <ActionBox
