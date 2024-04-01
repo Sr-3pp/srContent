@@ -46,7 +46,7 @@ export const validateForm = (form: FieldSet[], callback: Function) => {
 
   form.forEach((fieldset: FieldSet) => {
     fieldset.fields.forEach((field: any) => {
-      if (field.props.required && !field.props.value) {
+      if (field.props.required && !field.props.value.length) {
         errors.push({ field: field.props.name, message: "Campo requerido" });
       }
       if (field.props.confirmation) {
