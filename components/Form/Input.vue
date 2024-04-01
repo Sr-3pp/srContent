@@ -13,6 +13,7 @@
       :value="modelValue"
       :required="required"
       :disabled="disabled"
+      :placeholder="placeholder"
       @input="updateValue"
     />
     <span class="sr-form-input-label"> {{ label }}</span>
@@ -37,6 +38,10 @@ defineProps({
     default: "",
   },
   label: {
+    type: String,
+    default: "",
+  },
+  placeholder: {
     type: String,
     default: "",
   },

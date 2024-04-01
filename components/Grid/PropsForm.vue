@@ -44,6 +44,7 @@
 </template>
 
 <script lang="ts" setup>
+import FormBox from "../Form/Box.vue";
 defineProps({
   gridElement: {
     type: Object,

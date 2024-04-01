@@ -126,6 +126,9 @@
 </template>
 
 <script lang="ts" setup>
+import FormBox from "../../Form/Box.vue";
+import FormSelect from "../../Form/Select.vue";
+
 defineProps({
   columnElement: {
     type: Object,

@@ -67,6 +67,9 @@
 <script lang="ts" setup>
 import { pxToRem } from "../../assets/ts/utilities";
 import FormInput from "../Form/Input.vue";
+import FormBox from "../Form/Box.vue";
+import FormSelect from "../Form/Select.vue";
+import FormButton from "../Form/Button.vue";
 
 defineProps({
   textElement: {

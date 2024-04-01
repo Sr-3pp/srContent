@@ -40,11 +40,13 @@
           </svg>
         </button>
       </li>
+      <slot
+        name="item"
+        :current="current"
+        :toggle="(idx: number) => current = idx"
+      ></slot>
       <li class="sr-tabs-item" v-if="editable">
-        <button
-          class="sr-tabs-add-btn"
-          @click="items.push({ label: 'New Tab', content: [] })"
-        >
+        <button class="sr-tabs-add-btn" @click="addItem">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -57,11 +59,6 @@
           </svg>
         </button>
       </li>
-      <slot
-        name="item"
-        :current="current"
-        :toggle="(idx: number) => current = idx"
-      ></slot>
     </ul>
     <TransitionGroup tag="div" name="component-fade" mode="out-in">
       <article
@@ -128,7 +125,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from "vue";
+import { computed, useSlots } from "vue";
 import { EmitHandler, updateValue } from "../../assets/ts/utilities";
 import Button from "../Form/Button.vue";
 import ActionBox from "../ActionBox.vue";
@@ -164,6 +161,7 @@ const emit = defineEmits([
   "component-list",
   "media-gallery",
   "icon-gallery",
+  "new-item",
 ]);
 const current = computed({
   get: () => props.active,
@@ -174,6 +172,17 @@ const current = computed({
     });
   },
 });
+
+const slots = useSlots();
+
+const addItem = () => {
+  const item = { label: "New Tab", content: [] };
+  if (Object.keys(slots).length) {
+    emit("new-item", item);
+  } else {
+    props.items.push(item);
+  }
+};
 </script>
 
 <style lang="scss">

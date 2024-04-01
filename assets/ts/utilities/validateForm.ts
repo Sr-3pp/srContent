@@ -31,7 +31,7 @@ const validateMail = (mail: string) => {
 const verifyFields = (data: any, field: any) => {
   const confirmationField = field.props.confirmation;
   const confirmationValue = data[confirmationField];
-  const value = data[field.props.name];
+  const value = field.props.value;
 
   if (confirmationValue !== value) {
     return false;
