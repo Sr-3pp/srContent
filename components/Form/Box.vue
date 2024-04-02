@@ -10,7 +10,9 @@
       :name="name"
       :value="value"
       :disabled="disabled"
-      :checked="Boolean(value == modelValue)"
+      :checked="
+        type == 'radio' ? Boolean(value == modelValue) : Boolean(modelValue)
+      "
       @change="updateValue"
     />
     <span class="sr-form-box-box"></span>
