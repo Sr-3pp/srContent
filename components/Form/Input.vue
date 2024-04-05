@@ -14,6 +14,7 @@
       :required="required"
       :disabled="disabled"
       :placeholder="placeholder"
+      :step="step"
       @input="updateValue"
     />
     <span class="sr-form-input-label"> {{ label }}</span>
@@ -79,6 +80,10 @@ defineProps({
       class: "",
       style: {},
     }),
+  },
+  step: {
+    type: String,
+    default: "",
   },
 });
 
