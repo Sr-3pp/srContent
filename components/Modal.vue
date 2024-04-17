@@ -1,30 +1,49 @@
 <template>
-  <div
+  <dialog
+    ref="modalEl"
     class="sr-modal"
-    :class="{ active, 'active-done': activeDone, [layout as string]: layout, [css.class]: css.class }"
+    :class="{ active, [layout as string]: layout, [css.class]: css.class }"
+    :style="{
+      ...css.style,
+      '--transition-duration': `${transitionDuration}ms`,
+    }"
+    @click="close"
   >
-    <div class="sr-modal-content">
-      <button class="sr-modal-close" @click="toogleModal(false)">
-        <slot name="close" />
-      </button>
-      <slot name="header" />
-      <slot name="body" />
-      <slot name="footer" />
+    <div class="sr-modal-container">
+      <div class="sr-modal-content">
+        <button class="sr-modal-close" @click="toggle">
+          <slot name="close">
+            <span>&times;</span>
+          </slot>
+        </button>
+
+        <div v-if="$slots.header" class="sr-modal-header">
+          <slot name="header" />
+        </div>
+
+        <div v-if="$slots.body" class="sr-modal-body">
+          <slot name="body" />
+        </div>
+
+        <div v-if="$slots.footer" class="sr-modal-footer">
+          <slot name="footer" />
+        </div>
+      </div>
     </div>
-    <div @click="toogleModal(false)" class="sr-modal-backdrop"></div>
-  </div>
+  </dialog>
 </template>
 
 <script lang="ts" setup>
-import { ref, watch } from "vue";
+import { ref } from "vue";
 import { lockBody } from "../assets/ts/utilities";
 
-const activeDone = ref(false);
+const modalEl = ref();
+const active = ref(false);
 
 const props = defineProps({
-  active: {
-    type: Boolean,
-    default: false,
+  transitionDuration: {
+    type: Number,
+    default: 350,
   },
   layout: {
     type: String,
@@ -39,83 +58,222 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["close"]);
-
-const toogleModal = (sw: boolean) => {
-  if (sw) {
-    setTimeout(() => {
-      activeDone.value = true;
-    }, 100);
-  } else {
-    activeDone.value = false;
-    setTimeout(() => {
-      emit("close");
-    }, 300);
-  }
-
-  lockBody(sw);
+const close = (e: MouseEvent) => {
+  if (e && (e.target as HTMLElement).nodeName !== "DIALOG") return;
+  toggle();
 };
 
-watch(
-  () => props.active,
-  (sw) => {
-    toogleModal(sw);
+const toggle = () => {
+  active.value = !active.value;
+  if (active.value) {
+    modalEl.value.showModal();
+  } else {
+    setTimeout(() => {
+      modalEl.value.close();
+    }, props.transitionDuration);
   }
-);
+
+  lockBody(active.value);
+};
+
+defineExpose({
+  toggle,
+});
 </script>
 
-<style lang="scss">
+<style>
+@keyframes sr-fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes sr-fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes sr-slide-up-in {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes sr-slide-up-out {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes sr-slide-down-in {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes sr-slide-down-out {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes sr-slide-left-in {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes sr-slide-left-out {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes sr-slide-right-in {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes sr-slide-right-out {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+</style>
+
+<style lang="scss" scoped>
 .sr-modal {
+  --transition-duration: 350ms;
+  --transition-in: "sr-fade-in";
+  --transition-out: "sr-fade-out";
   --modal-background: #fefefe;
   --backdrop-background-color: rgba(0, 0, 0, 0.4);
   --close-btn-background-color: red;
   --close-btn-color: white;
 
-  position: fixed;
-  z-index: 10;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
   display: none;
   align-items: center;
   justify-content: center;
-  opacity: 0;
-  transition: opacity 0.35s ease;
+  padding: 0;
+  background: none;
+  border: none;
+
+  &[open] {
+    display: flex;
+    animation: var(--transition-out) var(--transition-duration) forwards;
+
+    &::backdrop {
+      animation: "sr-fade-out" var(--transition-duration) forwards;
+    }
+
+    &.active {
+      animation: var(--transition-in) var(--transition-duration) forwards;
+
+      &::backdrop {
+        animation: "sr-fade-in" var(--transition-duration) forwards;
+      }
+    }
+  }
+
+  &.full {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    max-width: inherit;
+    max-height: inherit;
+    .sr-modal-container,
+    .sr-modal-content {
+      width: 100%;
+      height: 100%;
+    }
+
+    .sr-modal-container {
+      padding: 0;
+    }
+  }
 
   &.left,
   &.right {
+    &.sr-modal {
+      margin: 0;
+      max-width: inherit;
+      max-height: inherit;
+      height: 100vh;
+      width: 100vw;
+    }
     .sr-modal {
       &-content {
-        height: 100%;
-        width: 30%;
+        width: 100%;
+        margin: 0;
         min-width: pxToRem(300);
       }
-    }
-    &.active-done {
-      .sr-modal {
-        &-content {
-          transform: translateX(0);
-        }
+      &-container {
+        width: 30%;
+        padding: 0;
+      }
+      &-container,
+      &-content {
+        height: 100%;
       }
     }
   }
 
   &.top,
   &.bottom {
+    &.sr-modal {
+      margin: 0;
+      max-width: inherit;
+      max-height: inherit;
+      height: 100vh;
+      width: 100vw;
+    }
     .sr-modal {
       &-content {
-        height: 30%;
-        width: 100%;
+        height: 100%;
         min-height: pxToRem(200);
         max-width: inherit;
       }
-    }
-    &.active-done {
-      .sr-modal {
-        &-content {
-          transform: translateY(0);
-        }
+
+      &-container {
+        height: 30%;
+        padding: 0;
+      }
+
+      &-container,
+      &-content {
+        width: 100%;
       }
     }
   }
@@ -128,8 +286,10 @@ watch(
         top: 0;
         margin-top: 0;
         margin-bottom: auto;
-        transform: translateY(-100%);
-        transition: transform 0.35s ease, opacity 0.35s ease;
+      }
+
+      &-container {
+        margin-bottom: auto;
       }
 
       &-close {
@@ -149,8 +309,9 @@ watch(
         bottom: 0;
         margin-bottom: 0;
         margin-top: auto;
-        transform: translateY(100%);
-        transition: transform 0.35s ease, opacity 0.35s ease;
+      }
+      &-container {
+        margin-top: auto;
       }
     }
   }
@@ -162,8 +323,10 @@ watch(
         border-top-left-radius: 0;
         left: 0;
         margin-left: 0;
-        transform: translateX(-100%);
-        transition: transform 0.35s ease, opacity 0.35s ease;
+      }
+
+      &-container {
+        margin-right: auto;
       }
 
       &-close {
@@ -182,8 +345,10 @@ watch(
         left: inherit;
         right: 0;
         margin-right: 0;
-        transform: translateX(100%);
-        transition: transform 0.35s ease, opacity 0.35s ease;
+      }
+
+      &-container {
+        margin-left: auto;
       }
 
       &-close {
@@ -195,12 +360,9 @@ watch(
     }
   }
 
-  &.active {
+  &-container {
     display: flex;
-
-    &-done {
-      opacity: 1;
-    }
+    padding: pxToRem(20);
   }
 
   &-content {
@@ -209,7 +371,7 @@ watch(
     background: var(--modal-background);
     border-radius: pxToRem(8);
     width: 100%;
-    max-width: pxToRem(1100);
+    min-width: pxToRem(1100);
     margin-right: auto;
     margin-left: auto;
     display: flex;
@@ -243,13 +405,7 @@ watch(
     outline: none;
   }
 
-  &-backdrop {
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
+  &::backdrop {
     background-color: var(--backdrop-background-color);
   }
 }

@@ -64,7 +64,7 @@
       <article
         tabindex="0"
         v-for="(item, i) in items"
-        :key="item"
+        :key="item.id || new Date().getTime() + i"
         class="sr-tabs-content"
         v-show="current == i"
       >
@@ -200,6 +200,7 @@ const addItem = () => {
 .component-fade-leave-active {
   position: absolute;
   display: none;
+  width: 100%;
 }
 .sr-tabs {
   overflow: hidden;

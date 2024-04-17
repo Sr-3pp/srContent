@@ -3,49 +3,42 @@
     <PreviewControls
       :responsive="responsive"
       @set-resolution="setResolution"
-      @preview="previewSw = true"
-    />
-    <Modal
-      :active="previewSw"
+      @preview="showPreview"
       @close="closePreview"
-      v-bind="{ css: { class: 'preview-modal' } }"
-    >
+    />
+    <Modal ref="previewModal" class="preview-modal" layout="full">
       <template #close>
         <span> X </span>
       </template>
       <template #header>
-        <div class="sr-modal-header">
-          <Container :with-padding="true">
-            <h2>Preview</h2>
-            <ul class="sr-preview-controls-resolutions">
-              <li
-                class="sr-preview-controls-resolution"
-                v-for="(br, i) in breakpoints"
-                :key="i"
-              >
-                <FormBox
-                  :label="br.name"
-                  type="radio"
-                  name="responsive"
-                  :value="br.value"
-                  :checked="responsive == br.value"
-                  v-model="responsive"
-                />
-              </li>
-            </ul>
-          </Container>
-        </div>
+        <Container :with-padding="true">
+          <h2>Preview</h2>
+          <ul class="sr-preview-controls-resolutions">
+            <li
+              class="sr-preview-controls-resolution"
+              v-for="(br, i) in breakpoints"
+              :key="i"
+            >
+              <FormBox
+                :label="br.name"
+                type="radio"
+                name="responsive"
+                :value="br.value"
+                :checked="responsive == br.value"
+                v-model="responsive"
+              />
+            </li>
+          </ul>
+        </Container>
       </template>
       <template #body>
-        <div class="sr-modal-body">
-          <Preview
-            v-if="previewSw"
-            :responsive="responsive"
-            v-bind="{
+        <Preview
+          v-if="previewSw"
+          :responsive="responsive"
+          v-bind="{
               content: proccessContent(content) as any,
             }"
-          />
-        </div>
+        />
       </template>
     </Modal>
 
@@ -66,7 +59,7 @@
 
     <button @click="saveContent">save</button>
 
-    <Modal :active="mediaSw" @close="mediaSw = false">
+    <Modal ref="mediaModal">
       <template #close>
         <span> X </span>
       </template>
@@ -77,7 +70,7 @@
       </template>
     </Modal>
 
-    <Modal :active="iconSw" @close="iconSw = false">
+    <Modal ref="iconModal">
       <template #close>
         <span> X </span>
       </template>
@@ -89,7 +82,7 @@
       </template>
     </Modal>
 
-    <Modal :active="componentSw" @close="componentSw = false">
+    <Modal ref="componentModal">
       <template #close>
         <span> X </span>
       </template>
@@ -101,12 +94,7 @@
       </template>
     </Modal>
 
-    <Modal
-      class="component-props-modal"
-      :active="propsSw"
-      @close="propsSw = false"
-      layout="bottom"
-    >
+    <Modal class="component-props-modal" ref="propsModal" layout="bottom">
       <template #close>
         <span> X </span>
       </template>
@@ -144,9 +132,16 @@
 
     <NotificationStack :notifications="notifications" />
     <button @click="notify">push notification</button>
-    <button @click="sideModalSw = true">open side modal</button>
+    <button @click="(sideModal as any).toggle()">open side modal</button>
 
-    <Modal :active="sideModalSw" layout="top" @close="sideModalSw = false">
+    <Modal
+      ref="sideModal"
+      layout="bottom"
+      style="
+        --transition-in: 'sr-slide-down-in';
+        --transition-out: 'sr-slide-down-out';
+      "
+    >
       <template #close>
         <span> X </span>
       </template>
@@ -168,11 +163,12 @@ const content = ref(page.content);
 
 content.value = proccessContent(content.value, true);
 
-const mediaSw = ref(false);
-const iconSw = ref(false);
-const sideModalSw = ref(false);
-const componentSw = ref(false);
-const propsSw = ref(false);
+const mediaModal = ref(null);
+const iconModal = ref(null);
+const sideModal = ref(null);
+const componentModal = ref(null);
+const propsModal = ref(null);
+const previewModal = ref(null);
 const previewSw = ref(false);
 
 const responsive = ref("");
@@ -318,22 +314,22 @@ const saveContent = async () => {
 };
 
 const MediaGallery = (component: Component) => {
-  mediaSw.value = true;
+  if (mediaModal.value) (mediaModal as any).value.toggle();
   currentComponent.value.component = component;
 };
 
 const setPicture = (src: string) => {
   currentComponent.value.component.props.src = src;
-  mediaSw.value = false;
+  if (mediaModal.value) (mediaModal as any).value.toggle();
 };
 
 const setIcon = (name: string) => {
   currentComponent.value.component.props.name = name;
-  iconSw.value = false;
+  if (iconModal.value) (iconModal as any).value.toggle();
 };
 
 const IconGallery = (component: Component) => {
-  iconSw.value = true;
+  if (iconModal.value) (iconModal as any).value.toggle();
   currentComponent.value.component = component;
 };
 
@@ -344,7 +340,7 @@ const listComponents = ({
   component: Component;
   sw: boolean;
 }) => {
-  componentSw.value = true;
+  if (componentModal.value) (componentModal as any).value.toggle();
   currentComponent.value.component = component;
   currentComponent.value.sw = sw;
 };
@@ -360,11 +356,11 @@ const insertComponent = () => {
       text: "This is a text component",
     },
   });
-  componentSw.value = false;
+  if (componentModal.value) (componentModal as any).value.toggle();
 };
 
 const editProps = (component: Component) => {
-  propsSw.value = true;
+  if (propsModal.value) (propsModal as any).value.toggle();
   currentComponent.value.component = component || {
     component: "Container",
     props: {
@@ -381,11 +377,13 @@ const editProps = (component: Component) => {
 
 const showPreview = () => {
   previewSw.value = true;
+  if (previewModal.value) (previewModal as any).value.toggle();
 };
 
 const closePreview = () => {
-  proccessContent(content.value, true);
   previewSw.value = false;
+  proccessContent(content.value, true);
+  if (previewModal.value) (previewModal as any).value.toggle();
 };
 
 const setResolution = (resolution: string) => {
@@ -422,14 +420,6 @@ const clearBreakpoint = (resolution: string) => {
 }
 
 .preview-modal {
-  .sr-modal-content {
-    max-width: 100%;
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    border-radius: 0;
-  }
-
   .sr-modal-header {
     .sr-container {
       display: flex;

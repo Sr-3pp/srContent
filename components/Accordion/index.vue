@@ -3,9 +3,10 @@
     class="sr-accordion"
     :class="{ open, [css.class]: css.class }"
     :style="{ ...css.style }"
+    ref="accordionEl"
   >
     <button
-      @click="$emit('toggle', { key: 'open', value: !open })"
+      @click="toggle"
       aria-label="Toggle acordion"
       class="sr-accordion-label"
     >
@@ -70,10 +71,14 @@ import {
   deleteElement,
 } from "../../assets/ts/utilities";
 
-defineProps({
-  open: {
+const props = defineProps({
+  isOpen: {
     type: Boolean,
     default: false,
+  },
+  transitionDuration: {
+    type: Number,
+    default: 350,
   },
   label: {
     type: String,
@@ -90,6 +95,42 @@ defineProps({
       style: {},
     }),
   },
+});
+
+const accordionEl = ref(null);
+const open = ref(false);
+
+const emit = defineEmits([
+  "toggle",
+  "edit-props",
+  "component-list",
+  "media-gallery",
+  "icon-gallery",
+]);
+
+const toggle = () => {
+  open.value = !open.value;
+  emit("toggle", { key: "open", value: open.value });
+};
+
+const close = () => {
+  open.value = false;
+};
+
+const openAccordion = () => {
+  open.value = true;
+};
+
+defineExpose({
+  toggle,
+  close,
+  openAccordion,
+});
+
+nextTick(() => {
+  if (props.isOpen) {
+    openAccordion();
+  }
 });
 </script>
 

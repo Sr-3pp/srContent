@@ -11,9 +11,10 @@
       :key="i"
     >
       <Accordion
+        ref="accordionGroupEl"
         v-bind="accordion.props"
         @input="updateValue(accordion, $event)"
-        @toggle="toggleAccordions(accordion)"
+        @toggle="toggleAccordions(i)"
         @change="updateValue(accordion, $event)"
         @delete="deleteElement(content, i)"
         @edit-props="($event: any, props: any) => {
@@ -69,21 +70,21 @@ const props = defineProps({
   },
 });
 
-const toggleAccordions = (accordion: Component) => {
-  const current: Component | undefined = props.content.find(
-    (a: Component) => a.props.open
-  );
-  if (current && current != accordion) {
-    current.props.open = false;
-    accordion.props.open = !accordion.props.open;
-  } else if (!current) {
-    accordion.props.open = !accordion.props.open;
-  }
+const accordionGroupEl = ref(null);
 
-  if (props.closeAll && current && current == accordion) {
-    current.props.open = false;
-  }
+const toggleAccordions = (idx: number) => {
+  (accordionGroupEl.value as any).forEach((accordion: Component, i: number) => {
+    if (idx !== i) {
+      accordion.close();
+    } else if (idx === i && !props.closeAll) {
+      accordion.openAccordion();
+    }
+  });
 };
+
+nextTick(() => {
+  (accordionGroupEl.value as any).at(0).openAccordion();
+});
 </script>
 
 <style lang="scss" scoped>
