@@ -82,8 +82,10 @@ const toggleAccordions = (idx: number) => {
   });
 };
 
-nextTick(() => {
-  (accordionGroupEl.value as any).at(0).openAccordion();
+onMounted(() => {
+  nextTick(() => {
+    (accordionGroupEl.value as any).at(0).openAccordion();
+  });
 });
 </script>
 

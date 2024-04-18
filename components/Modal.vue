@@ -176,14 +176,13 @@ defineExpose({
 <style lang="scss" scoped>
 .sr-modal {
   --transition-duration: 350ms;
-  --transition-in: "sr-fade-in";
-  --transition-out: "sr-fade-out";
+  --transition-in: sr-fade-in;
+  --transition-out: sr-fade-out;
   --modal-background: #fefefe;
   --backdrop-background-color: rgba(0, 0, 0, 0.4);
   --close-btn-background-color: red;
   --close-btn-color: white;
 
-  display: none;
   align-items: center;
   justify-content: center;
   padding: 0;
@@ -192,17 +191,21 @@ defineExpose({
 
   &[open] {
     display: flex;
-    animation: var(--transition-out) var(--transition-duration) forwards;
+    animation-name: var(--transition-out);
+    animation-duration: var(--transition-duration);
+    animation-fill-mode: forwards;
 
     &::backdrop {
-      animation: "sr-fade-out" var(--transition-duration) forwards;
+      animation-name: sr-fade-out;
+      animation-duration: var(--transition-duration);
+      animation-fill-mode: forwards;
     }
 
     &.active {
-      animation: var(--transition-in) var(--transition-duration) forwards;
+      animation-name: var(--transition-in);
 
       &::backdrop {
-        animation: "sr-fade-in" var(--transition-duration) forwards;
+        animation-name: sr-fade-in;
       }
     }
   }

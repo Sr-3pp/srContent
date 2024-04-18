@@ -136,11 +136,8 @@
 
     <Modal
       ref="sideModal"
-      layout="bottom"
-      style="
-        --transition-in: 'sr-slide-down-in';
-        --transition-out: 'sr-slide-down-out';
-      "
+      layout="top"
+      style="--transition-in: sr-slide-up-in; --transition-out: sr-slide-up-out"
     >
       <template #close>
         <span> X </span>
