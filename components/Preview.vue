@@ -14,6 +14,8 @@
 import { createApp, h, ref, onMounted, onBeforeUpdate } from "vue";
 import * as Components from "../components";
 
+const { public: config } = useRuntimeConfig();
+
 const props = defineProps({
   appComponents: {
     type: Object,
@@ -62,11 +64,13 @@ onMounted(() => {
 
   const prefixedComponents: any = {};
 
-  Object.keys(Components).forEach((componentName) => {
-    prefixedComponents[`${props.prefix}${componentName}`] = (Components as any)[
-      componentName
-    ];
-  });
+  if (!config.vps && props.prefix) {
+    Object.keys(Components).forEach((componentName) => {
+      prefixedComponents[`${props.prefix}${componentName}`] = (
+        Components as any
+      )[componentName];
+    });
+  }
 
   const allComponents = { ...prefixedComponents, ...props.appComponents };
 
