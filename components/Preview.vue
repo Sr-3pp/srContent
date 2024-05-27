@@ -12,9 +12,7 @@
 
 <script lang="ts" setup>
 import { createApp, h, ref, onMounted, onBeforeUpdate } from "vue";
-import * as Components from "../components";
-
-const { public: config } = useRuntimeConfig();
+import { Container } from "./index";
 
 const props = defineProps({
   appComponents: {
@@ -44,10 +42,11 @@ let iframeApp: any = null;
 
 onMounted(() => {
   const iframeDocument = iframeRef.value.contentDocument;
-  var arrStyleSheets = parent.document.getElementsByTagName("style");
+  var arrStyleBlocks = parent.document.getElementsByTagName("style");
+  var arrStyleSheets = parent.document.getElementsByTagName("link");
 
-  Array.from(arrStyleSheets).forEach((styleSheet) => {
-    iframeDocument.head.appendChild(styleSheet.cloneNode(true));
+  Array.from([...arrStyleBlocks, ...arrStyleSheets]).forEach((styleBlock) => {
+    iframeDocument.head.appendChild(styleBlock.cloneNode(true));
   });
 
   const el = iframeDocument.createElement("div");
@@ -57,22 +56,12 @@ onMounted(() => {
 
   iframeApp = createApp({
     render: () =>
-      h(Components.Container, {
+      h(Container, {
         content: props.content as any,
       }),
   });
 
-  const prefixedComponents: any = {};
-
-  if (!config.vps && props.prefix) {
-    Object.keys(Components).forEach((componentName) => {
-      prefixedComponents[`${props.prefix}${componentName}`] = (
-        Components as any
-      )[componentName];
-    });
-  }
-
-  const allComponents = { ...prefixedComponents, ...props.appComponents };
+  const allComponents = { ...props.appComponents };
 
   Object.keys(allComponents).forEach((componentName) => {
     iframeApp.component(componentName, (allComponents as any)[componentName]);
