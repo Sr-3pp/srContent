@@ -1,6 +1,6 @@
 {
   "name": "sr-content-2",
-  "version": "0.0.30",
+  "version": "0.0.31",
   "description": "A nuxt 3 JSON Content  UI/Editor, by Sr3pp",
   "type": "module",
   "main": "nuxt.js",

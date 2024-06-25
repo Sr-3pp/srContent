@@ -9,7 +9,7 @@
       :is="tag"
       v-if="!html"
       class="sr-text-container"
-      @blur="emitValue"
+      @blur="emitValue($event, 'text')"
       :contenteditable="editable"
     >
       {{ text }}
@@ -18,7 +18,7 @@
       v-else
       v-html="html"
       class="sr-text-container"
-      @blur="emitValue"
+      @blur="emitValue($event, 'html')"
       :contenteditable="editable"
     ></div>
     <ActionBox
@@ -58,10 +58,10 @@ const props: any = defineProps({
 });
 
 const emit = defineEmits(["input", "edit-props", "delete"]);
-const emitValue = (event: any) => {
-  const text = event.target.innerText;
+const emitValue = (event: any, key: string) => {
+  const text = key === "text" ? event.target.innerText : event.target.innerHTML;
   emit("input", {
-    key: "text",
+    key,
     value: text,
   });
 };

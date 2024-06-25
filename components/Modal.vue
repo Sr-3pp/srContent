@@ -63,6 +63,8 @@ const close = (e: MouseEvent) => {
   toggle();
 };
 
+const emit = defineEmits(["toggled"]);
+
 const toggle = () => {
   active.value = !active.value;
   if (active.value) {
@@ -74,10 +76,13 @@ const toggle = () => {
   }
 
   lockBody(active.value);
+
+  emit("toggled", active.value);
 };
 
 defineExpose({
   toggle,
+  isOpen: active,
 });
 </script>
 
