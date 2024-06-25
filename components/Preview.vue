@@ -11,7 +11,14 @@
 </template>
 
 <script lang="ts" setup>
-import { createApp, h, ref, onMounted, onBeforeUpdate } from "vue";
+import {
+  createApp,
+  h,
+  ref,
+  onMounted,
+  onBeforeUpdate,
+  resolveComponent,
+} from "vue";
 import { Container } from "./index";
 
 const props = defineProps({
@@ -64,7 +71,7 @@ onMounted(() => {
   const allComponents = { ...props.appComponents };
 
   Object.keys(allComponents).forEach((componentName) => {
-    iframeApp.component(componentName, (allComponents as any)[componentName]);
+    iframeApp.component(componentName, resolveComponent(componentName));
   });
 
   iframeApp.mount(el);
