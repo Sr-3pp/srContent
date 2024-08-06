@@ -43,6 +43,7 @@
           $emit('icon-gallery', data)
         )
       "
+      @component-event="$emit('component-event', { component, $event })"
     ></component>
     <button
       v-if="editable"

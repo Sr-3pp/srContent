@@ -40,6 +40,7 @@
           $emit('icon-gallery', data)
         )
       "
+      @component-event="$emit('component-event', { component, $event })"
     ></component>
     <button v-if="editable" @click="createColumn(true)" class="append-btn">
       Insert Column here

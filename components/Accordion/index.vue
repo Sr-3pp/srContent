@@ -58,6 +58,7 @@ Object.entries(props || {}).forEach(([key, value]: [string, any]) => component.p
             $emit('icon-gallery', data)
           )
         "
+        @component-event="$emit('component-event', { component, $event })"
       ></component>
     </div>
   </div>
@@ -107,6 +108,7 @@ const emit = defineEmits([
   "component-list",
   "media-gallery",
   "icon-gallery",
+  "component-event",
 ]);
 
 const toggle = () => {

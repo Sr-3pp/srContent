@@ -39,6 +39,9 @@ Object.entries(props || {}).forEach(([key, value]: [string, any]) => accordion.p
             $emit('icon-gallery', data)
           )
         "
+        @component-event="
+          $emit('component-event', { component: accordion, $event })
+        "
       />
     </li>
   </ol>

@@ -99,6 +99,9 @@
               $emit('icon-gallery', data)
             )
           "
+          @component-event="
+            $emit('component-event', { component: element, $event })
+          "
         ></component>
         <Button
           class="add-btn"
@@ -162,6 +165,7 @@ const emit = defineEmits([
   "media-gallery",
   "icon-gallery",
   "new-item",
+  "component-event",
 ]);
 const current = computed({
   get: () => props.active,
