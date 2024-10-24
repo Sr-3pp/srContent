@@ -1,2 +1,2 @@
-@use "./pxToRem.scss" as *;
-@use "./responsiveVars.scss" as *;
+@forward "./pxToRem.scss";
+@forward "./responsiveVars.scss";
