@@ -1,2 +1,2 @@
-@import "./pxToRem.scss";
-@import "./responsiveVars.scss";
+@use "./pxToRem.scss" as *;
+@use "./responsiveVars.scss" as *;
