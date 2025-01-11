@@ -1,6 +1,6 @@
 {
   "name": "sr-content-2",
-  "version": "0.0.36",
+  "version": "0.0.37",
   "description": "A nuxt 3 JSON Content  UI/Editor, by Sr3pp",
   "type": "module",
   "main": "nuxt.js",
@@ -13,7 +13,7 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@nuxt/devtools": "latest",
+    "@nuxt/devtools": "^1.7.0",
     "@nuxt/test-utils": "3.8.1",
     "@vitejs/plugin-vue": "^4.5.0",
     "@vue/test-utils": "^2.4.2",

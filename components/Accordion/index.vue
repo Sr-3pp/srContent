@@ -65,7 +65,7 @@ Object.entries(props || {}).forEach(([key, value]: [string, any]) => component.p
 </template>
 
 <script lang="ts" setup>
-import { ref, defineProps, defineEmits, defineExpose, nextTick } from "vue";
+import { ref, nextTick } from "vue";
 import type { Component } from "../../types";
 import {
   updateValue,

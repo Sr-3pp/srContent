@@ -75,7 +75,7 @@ const emitValue = (event: any, key: string) => {
   --text-align-lg: var(--text-align-md);
   --text-align-xl: var(--text-align-lg);
 
-  --text-size: pxToRem(16);
+  --text-size: #{pxToRem(16)};
   --text-size-sm: var(--text-size);
   --text-size-md: var(--text-size-sm);
   --text-size-lg: var(--text-size-md);
